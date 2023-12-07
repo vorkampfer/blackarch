@@ -15,6 +15,7 @@ an easy fix once the issue is understood.
 5. sudo rm -rf ~/etc/pacman.d/gnupg/ (Delete everything in the directory even the gnupg/ folder itself if possible)
 6. sudo rm -rf /var/lib/pacman/sync/blackarch.db.sig (I also recommend just deleting everything inside the sync folder)
 7. sudo rm -rf /var/lib/pacman/sync/* (Optional but if your issue is persistant delete everything in the sync folder)
+
 ### Create your own MirrorList
 8. Now you need to create a custom mirrorlist. (https://archlinux.org/mirrorlist) This is an important step because this "bug" will keep pointing to the wrong mirrors
 so it is highley recommended  you create your own custom mirror list. See the links below to create your own arch and or blackarch mirror list.
@@ -51,6 +52,8 @@ still have corruption.
 31. Lookup a package in the AUR with Paru : $ paru -Ss package_name
 32 Install package with paru : $ paru -S package_name.
 38. Done below you will find resource links.
+
+### Resource Links:
 ### https://blackarch.org/faq.html
 ### https://archlinux.org/mirrorlist/
 ### https://wiki.archlinux.org/title/mirrors
