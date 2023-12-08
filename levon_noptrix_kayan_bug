@@ -53,6 +53,27 @@ still have corruption.
 32 Install package with paru : $ paru -S package_name.
 38. Done below you will find resource links.
 
+### Re-enable BlackArch Repo with strap.sh
+39. If you had this issue and your BlackArch repo stopped showing up when your query with pacman or your favorite AUR pkg manager then
+you can fix it with strap.sh
+40. I recommend following the guide on https://www.blackarch.org/downloads.html
+41. I do not think I could explain it any easier than how it is explained on the site.
+42. curl the strap.sh file compare the sha1sum hash to the one on the link above give it +x executable permissions, 
+run it and then just do a regular update with sudo pacman -Syu.
+43. root@arch# curl -O https://blackarch.org/strap.sh
+44. root@arch# sha1sum strap.sh
+45. verify the sha1sum with the website above.
+46. run strap.sh
+47. give it executable permission chmod +x strap.sh
+48. sudo ./strap.sh
+49. enable the includes in your /etc/pacman.conf and or /etc/pacman.conf.pacnew file.
+50. Why pacnew file extension? Because pacnew is just pacman's way to update the config 
+and let you know it is the updated config and not the original. Basically just enable the 
+includes in both configs just to be sure.
+51. sudo pacman -Syu
+52. Done.
+
+
 ### Resource Links:
 ### https://blackarch.org/faq.html
 ### https://archlinux.org/mirrorlist/
