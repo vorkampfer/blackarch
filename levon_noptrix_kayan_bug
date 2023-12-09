@@ -37,8 +37,9 @@ You can look into that further at https://joshtronic.com/automatically-update-ar
 still have corruption.
 21. Here are other commands you can run if you are still having issues. I did not need to run these to resolve my issue. I have also included helpful links at the bottom of this page.
 22. sudo pacman -Sy archlinux-keyring chaotic-keyring blackarch-keyring 
-### pacman-key --refresh-keys (I don't think this command was useful at all)
-### $ sudo pacman -Scc && pacman -Syyu
+### pacman-key --refresh-keys (This can take an hour or more so if you refresh your keys be patient for it to finish)
+### $ sudo pacman -Scc 
+### $ sudo pacman -Syyu
 
 ### Add mulitlib and AUR repos
 23. To add multilib repo it is a simple uncomment in /etc/pacman.conf where it says include.
