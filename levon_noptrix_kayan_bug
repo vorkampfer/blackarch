@@ -5,74 +5,77 @@ educational purposes. If you break your machine it is not my fault. I would clas
 an easy fix once the issue is understood.
 
 ### Delete any corruptions.
-1. Fix your time
-2. # timectl set-ntp true
-3. Delete all the corrupted keys or mirrorlists. Yes I said delete all your mirrorlists.
-4. sudo rm -rf /etc/pacman.d/mirrorlist (also blackarch-mirrorlist and mirrorlist.pacnew as well)
-5. sudo rm -rf /etc/pacman.d/hooks/*
-6. sudo rm -rf /etc/pacman.d/scripts/*
-4. sudo rm -rf ~/.gnupg
-5. sudo rm -rf ~/etc/pacman.d/gnupg/ (Delete everything in the directory even the gnupg/ folder itself if possible)
-6. sudo rm -rf /var/lib/pacman/sync/blackarch.db.sig (I also recommend just deleting everything inside the sync folder)
-7. sudo rm -rf /var/lib/pacman/sync/* (Optional but if your issue is persistant delete everything in the sync folder)
+> Fix your time
+> # timectl set-ntp true
+> Delete all the corrupted keys or mirrorlists. Yes I said delete all your mirrorlists.
+> sudo rm -rf /etc/pacman.d/mirrorlist (also blackarch-mirrorlist and mirrorlist.pacnew as well)
+> sudo rm -rf /etc/pacman.d/hooks/*
+> sudo rm -rf /etc/pacman.d/scripts/*
+> sudo rm -rf ~/.gnupg
+> root@arch# rm -rf -R /root/.gnupg
+> sudo rm -rf -R /etc/pacman.d/gnupg/ (Delete everything in the directory even the gnupg/ folder itself if possible)
+> sudo rm -rf -R /var/lib/pacman/sync/blackarch.db.sig (I also recommend just deleting everything inside the sync folder)
+> sudo rm -rf -R /var/lib/pacman/sync/* (Optional but if your issue is persistant delete everything in the sync folder)
 
 ### Create your own MirrorList
-8. Now you need to create a custom mirrorlist. (https://archlinux.org/mirrorlist) This is an important step because this "bug" will keep pointing to the wrong mirrors
+> Now you need to create a custom mirrorlist. (https://archlinux.org/mirrorlist) This is an important step because this "bug" will keep pointing to the wrong mirrors
 so it is highley recommended  you create your own custom mirror list. See the links below to create your own arch and or blackarch mirror list.
-9. Once you create your custom mirror list clean it
-10. $ sed -i "s/#Serv/Serv" mirrorlist (Your just replacing #Serv with Serve to remove the hashtag from the word server)
-11. Save it to /etc/pacmand.d/mirrorlist (You will want servers that are in your country. That is up to you but if you really want this bug to go away then I 
-advise just using servers in your own country.)
-12. Do the same thing for the blackarch-mirrorlist, but I do not think they have a custom mirrorlist generator like arch does. There is this package called reflector.
+>  Once you create your custom mirror list clean it
+> $ sed -i "s/#Serv/Serv/g" mirrorlist (Your just replacing #Serv with Serve to remove the hashtag from the word server)
+>  Or you can do $ sudo cat updated_mirrors.txt | sed "s/#Serv/Serv/g" > /etc/pacman.d/mirrorlist
+> Basically just the updated mirrorlist to /etc/pacmand.d/mirrorlist (You will want servers that are in your country. Just a recommendation.)
+> Do the same thing for the blackarch-mirrorlist, but I do not think they have a custom mirrorlist generator like arch does. There is this package called reflector.
 You can look into that further at https://joshtronic.com/automatically-update-arch-linux-mirrors/
-13. Here is the link for BlackArch Official MirrorLists https://github.com/BlackArch/blackarch-site/blob/master/blackarch-mirrorlist
-14. Copy and paste this mirror list into /etc/pacman.d/blackarch-mirrorlist
+> Here is the link for BlackArch Official MirrorLists https://github.com/BlackArch/blackarch-site/blob/master/blackarch-mirrorlist
+> Copy and paste this mirror list into /etc/pacman.d/blackarch-mirrorlist
 
 ### Regenerate keys and update
-15. Now that you deleted all the corrupted keys, and pasted your own custom Mirrorlist into /etc/pacman.d/ you need to regenerate everything.
-16. sudo rm -rf /etc/pacman.d/gnupg/*
-17. sudo pacman-key --init && sudo pacman-key --populate archlinux blackarch && sudo pacman -Syy
-18. sudo pacman -Syu
-20. Everything should be working now. If you still have issues you will need to repeat the process and make sure you did not miss deleting any keys or mirrors that may
+> Now that you deleted all the corrupted keys, and pasted your own custom Mirrorlist into /etc/pacman.d/ you need to regenerate everything.
+> sudo rm -rf /etc/pacman.d/gnupg/*
+> sudo pacman-key --init && sudo pacman-key --populate archlinux blackarch && sudo pacman -Syy
+> sudo pacman -Syu
+> Everything should be working now. If you still have issues you will need to repeat the process and make sure you did not miss deleting any keys or mirrors that may
 still have corruption.
-21. Here are other commands you can run if you are still having issues. I did not need to run these to resolve my issue. I have also included helpful links at the bottom of this page.
-22. sudo pacman -Sy archlinux-keyring chaotic-keyring blackarch-keyring 
-### pacman-key --refresh-keys (This can take an hour or more so if you refresh your keys be patient for it to finish)
-### $ sudo pacman -Scc 
-### $ sudo pacman -Syyu
+> Here are other commands you can run if you are still having issues. I did not need to run these to resolve my issue. I have also included helpful links at the bottom of this page.
+> sudo pacman -Sy archlinux-keyring chaotic-keyring blackarch-keyring 
+> pacman-key --refresh-keys (This can take an hour or more so if you refresh your keys be patient for it to finish)
+> $ sudo pacman -Scc 
+> $ sudo pacman -Syyu
 
 ### Add mulitlib and AUR repos
-23. To add multilib repo it is a simple uncomment in /etc/pacman.conf where it says include.
-24. Also check mirrorlist and blackarch-mirrorlist are un-commented as well.
-25. To add the AUR you need an AUR package manager like Paru. It is my favorite. Written in Rust
-26. You need a rust stable version. 
-27. sudo pacman -S --needed git base-devel
-28. git clone https://aur.archlinux.org/paru.git
-29. cd paru
-30. makepkg -si
-31. Lookup a package in the AUR with Paru : $ paru -Ss package_name
-32 Install package with paru : $ paru -S package_name.
-38. Done below you will find resource links.
+> To add multilib repo it is a simple uncomment in /etc/pacman.conf where it says include.
+> Also check mirrorlist and blackarch-mirrorlist are un-commented as well.
+> To add the AUR you need an AUR package manager like Paru. It is my favorite. Written in Rust
+> You need a rust stable version. 
+> sudo pacman -S --needed git base-devel
+> git clone https://aur.archlinux.org/paru.git
+> cd paru
+> makepkg -si
+> Lookup a package in the AUR with Paru : $ paru -Ss package_name
+> Install package with paru : $ paru -S package_name.
+> Done below you will find resource links.
 
 ### Re-enable BlackArch Repo with strap.sh
-39. If you had this issue and your BlackArch repo stopped showing up when your query with pacman or your favorite AUR pkg manager then
+> If you had this issue and your BlackArch repo stopped showing up when your query with pacman or your favorite AUR pkg manager then
 you can fix it with strap.sh
-40. I recommend following the guide on https://www.blackarch.org/downloads.html
-41. I do not think I could explain it any easier than how it is explained on the site.
-42. curl the strap.sh file compare the sha1sum hash to the one on the link above give it +x executable permissions, 
+> I recommend just following the guide on https://www.blackarch.org/downloads.html
+> I do not think I could explain it any easier than how it is explained on the site.
+> curl the strap.sh file compare the sha1sum hash to the one on the link above give it +x executable permissions, 
 run it and then just do a regular update with sudo pacman -Syu.
-43. root@arch# curl -O https://blackarch.org/strap.sh
-44. root@arch# sha1sum strap.sh
-45. verify the sha1sum with the website above.
-46. run strap.sh
-47. give it executable permission chmod +x strap.sh
-48. sudo ./strap.sh
-49. enable the includes in your /etc/pacman.conf and or /etc/pacman.conf.pacnew file.
-50. Why pacnew file extension? Because pacnew is just pacman's way to update the config 
+> root@arch# curl -O https://blackarch.org/strap.sh
+> root@arch# sha1sum strap.sh
+> verify the sha1sum with the website above.
+> run strap.sh
+>  give it executable permission chmod +x strap.sh
+> sudo ./strap.sh
+> enable the includes in your /etc/pacman.conf and or /etc/pacman.conf.pacnew file.
+> Why pacnew file extension? Because pacnew is just pacman's way to update the config 
 and let you know it is the updated config and not the original. Basically just enable the 
 includes in both configs just to be sure.
-51. sudo pacman -Syu
-52. Done.
+> sudo pacman -Syu
+> I had much trouble with strap.sh and getting blackarch-mirrorlist to show up in my pacman/yay/paru querries. I am still trying to figure out
+why BlackArch tools are not showing up. Once I figure it I will update this part of the walk through with strap.sh.
+> Done.
 
 
 ### Resource Links:
