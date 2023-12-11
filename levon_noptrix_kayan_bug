@@ -7,8 +7,13 @@ an easy fix once the issue is understood.
 ### Delete any corruptions.
 > Fix your time
 > # timectl set-ntp true
-> Delete all the corrupted keys or mirrorlists. Yes I said delete all your mirrorlists.
+> Delete all the corrupted keys or mirrorlists. Yes, I said delete all your mirrorlists. If you do not feel
+comfortable doing this then don't. Do more research and or follow other guides on this. There are many other resource links
+about this bug. I have linked some of them below.
+> Make backups of your current mirrorlist, blackarch-mirrorlist
 > sudo rm -rf /etc/pacman.d/mirrorlist (also blackarch-mirrorlist and mirrorlist.pacnew as well)
+> sudo rm -rf /etc/pacman.d/blackarch-mirrorlist
+> sudo rm -rf /etc/pacman.d/mirrorlist.pacnew
 > sudo rm -rf /etc/pacman.d/hooks/*
 > sudo rm -rf /etc/pacman.d/scripts/*
 > sudo rm -rf ~/.gnupg
@@ -55,11 +60,14 @@ still have corruption.
 > Install package with paru : $ paru -S package_name.
 > Done below you will find resource links.
 
+### STRAP.SH
 ### Re-enable BlackArch Repo with strap.sh
-> If you had this issue and your BlackArch repo stopped showing up when your query with pacman or your favorite AUR pkg manager then
+> If you had this issue and your BlackArch repo stopped working up when you query with pacman or your favorite AUR pkg manager then
 you can fix it with strap.sh
-> I recommend just following the guide on https://www.blackarch.org/downloads.html
-> I do not think I could explain it any easier than how it is explained on the site.
+> I actually recommend the following link as it is easier to follow. 
+> https://www.makeuseof.com/install-blackarch-tools-on-arch-linux/
+> Or just following the guide on https://www.blackarch.org/downloads.html
+> I do not think I could explain it any easier than how it is explained on the sites above regarding strap.sh.
 > curl the strap.sh file compare the sha1sum hash to the one on the link above give it +x executable permissions, 
 run it and then just do a regular update with sudo pacman -Syu.
 > root@arch# curl -O https://blackarch.org/strap.sh
@@ -67,7 +75,9 @@ run it and then just do a regular update with sudo pacman -Syu.
 > verify the sha1sum with the website above.
 > run strap.sh
 >  give it executable permission chmod +x strap.sh
-> sudo ./strap.sh
+> root@arch# ./strap.sh
+> install something from the blackarch repo to make sure it works
+> sudo pacman -S metasploit  (for example)
 > enable the includes in your /etc/pacman.conf and or /etc/pacman.conf.pacnew file.
 > Why pacnew file extension? Because pacnew is just pacman's way to update the config 
 and let you know it is the updated config and not the original. Basically just enable the 
